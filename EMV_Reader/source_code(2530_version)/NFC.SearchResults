@@ -1,0 +1,111 @@
+---- Send Matches (112 in 11 files) ----
+basic_rf.c (Source\Board):uint8 sendBeginFlag = END ;
+basic_rf.c (Source\Board):void SendData(uint8 *sendBuff)
+basic_rf.c (Source\Board):	PreToTx(sendBuff);
+basic_rf.c (Source\Board):    ISTXON(); // Sending
+basic_rf.c (Source\Board):	sendBeginFlag = BEGIN;
+basic_rf.c (Source\Board):void SendHeartBeat(void)
+basic_rf.c (Source\Board):	Send( 50);
+basic_rf.c (Source\Board):			//UART0_SendData("xxx",4);
+basic_rf.c (Source\Board):			//Send(0x04);
+basic_rf.c (Source\Board):			//UART0_SendData(rxMpdu,25);
+basic_rf.c (Source\Board):			//Send(0x05);
+basic_rf.c (Source\Board):			Send(51);
+basic_rf.c (Source\Board):  /* send strobe to enter receive mode */
+basic_rf.h (Source\Board):void Send( uint8 cmd);
+basic_rf.h (Source\Board):void SendData(uint8* );
+basic_rf.h (Source\Board):void SendHeartBeat(void);
+basic_rf.h (Source\Board):void SendOverFlag(void);
+board.c (Source\Board):					UART0_SendByte('0');
+board.c (Source\Board):					UART0_SendByte('1');//其他数据开头为‘1’
+board.c (Source\Board):					UART0_SendByte(dataBuffer[Uart0Rx[3] - '0'][j+5]);
+board.c (Source\Board):					UART0_SendByte('0');
+board.c (Source\Board):					UART0_SendByte('1');//其他数据开头为‘1’
+board.c (Source\Board):					UART0_SendByte(dataBuffer[tmp][j+5]);
+board.c (Source\Board):				UART0_SendByte('0');
+board.c (Source\Board):				UART0_SendByte('1');//其他数据开头为‘1’
+board.c (Source\Board):				UART0_SendByte(dataBuffer[Uart0Rx[3] - '0'][j+5]);
+board.c (Source\Board):** 函数名称: UART0_SendByte
+board.c (Source\Board):void UART0_SendByte(uint8 data)
+board.c (Source\Board):** 函数名称: UART0_SendData
+board.c (Source\Board):void UART0_SendData(uint8 *pbuff, uint16 len)
+board.h (Source\Board):void UART0_SendByte(uint8 data);
+board.h (Source\Board):void UART1_SendByte(uint8 data);
+board.h (Source\Board):void UART0_SendData(uint8 *pbuff, uint16 len);
+board.h (Source\Board):void UART1_SendData(uint8 *pbuff, uint16 len);
+clrc663.c (Source\Board):  WriteRegister(RxWait,0x90);    // bit9,If set to 1, the RxWait time is RxWait x(0.5/DBFreq).  bit0--bit6,Defines the time after sending, where every input is ignored
+clrc663.c (Source\Board)://> Send the ReqA command
+clrc663.c (Source\Board):  WriteRegister(TxDataNum,0x08);       //BIT3 If cleared - it is possible to send a single symbol pattern.If set - data is sent.
+clrc663.c (Source\Board):  //next we send the RATS,after RATS ,we can continue to send APDU
+clrc663.c (Source\Board):uint8 TranceiveAPDU(uint8 *send_Buffer,uint8 send_Length,uint8 *receive_Buffer,uint16 *receive_Length)
+clrc663.c (Source\Board):  for(iterator=0;iterator<send_Length;iterator++)
+clrc663.c (Source\Board):    WriteRegister(FIFOData,send_Buffer[iterator]);  //attention!!!,if use 512 byte fifo this needs changing
+clrc663.c (Source\Board): uint8 TranceiveAPDU2(uint8 *send_Buffer,uint8 send_Length,uint8 *receive_Buffer,uint16 *receive_Length)
+clrc663.c (Source\Board):  for(iterator=0;iterator<send_Length;iterator++)
+clrc663.c (Source\Board):    WriteRegister(FIFOData,send_Buffer[iterator]);  //attention!!!,if use 512 byte fifo this needs changing
+clrc663.c (Source\Board):uint8 TranceiveWaitPO(uint8 *send_Buffer,uint8 send_Length,uint8 *receive_Buffer,uint16 *receive_Length)
+clrc663.c (Source\Board):  for(iterator=0;iterator<send_Length;iterator++)
+clrc663.c (Source\Board):    WriteRegister(FIFOData,send_Buffer[iterator]);  //attention!!!,if use 512 byte fifo this needs changing
+clrc663.c (Source\Board):char Send_Halt_A(){
+clrc663.c (Source\Board)://> Send HaltA cmd
+clrc663.c (Source\Board):volatile uint8 send_token=0,record_num=1;//只有持有令牌(token)的才能发送数据
+clrc663.c (Source\Board):  if(send_token== 0)
+clrc663.c (Source\Board):      send_token=0;
+clrc663.c (Source\Board):    send_token=1;//继续执行下一条命令
+clrc663.c (Source\Board):  if(send_token==1)
+clrc663.c (Source\Board):    send_token=2;
+clrc663.c (Source\Board):	if(send_token== 2)
+clrc663.c (Source\Board):	    send_token=4;
+clrc663.c (Source\Board):    if(send_token== 3)
+clrc663.c (Source\Board):			//send_token = 0;
+clrc663.c (Source\Board):     	//send_token= 4;
+clrc663.c (Source\Board):     	send_token= 4;
+clrc663.c (Source\Board):	if(send_token== 4)
+clrc663.c (Source\Board):		send_token= 5;
+clrc663.c (Source\Board):	if(send_token== 5)
+clrc663.c (Source\Board):		send_token= 6;
+clrc663.c (Source\Board):	if(send_token== 6)
+clrc663.c (Source\Board):		send_token= 0;
+clrc663.c (Source\Board):	SendOverFlag();
+clrc663.c (Source\Board):	send_token= 0;//数据输出完毕，再次初始化
+clrc663.c (Source\Board):	Send_Halt_A();
+hal_rf.c (Source\Board):void UARTSendDMA(uint8 DMACh,uint16 len)
+hal_rf.c (Source\Board):void UARTSendDMAWithSrc(uint8 DMACh,uint16 len,uint8 *src)
+hal_rf.c (Source\Board):    ISTXON(); // Sending
+hal_rf.h (Source\Board):void UARTSendDMA(uint8 DMACh,uint16 len);
+hal_rf.h (Source\Board):void UARTSendDMAWithSrc(uint8 DMACh,uint16 len,uint8 *src);
+key.c (Source\Board):uint8 SendStatus = 1;
+key.c (Source\Board):				if(SendStatus == 0)
+key.c (Source\Board):					Send( 0x01);//直连
+key.c (Source\Board):					SendStatus = 1;
+key.c (Source\Board):				else if(SendStatus == 1)
+key.c (Source\Board):					Send( 0x02);//阻断
+key.c (Source\Board):					SendStatus = 2;
+key.c (Source\Board):				else if(SendStatus == 2)
+key.c (Source\Board):					Send( 0x03);//替换固定坐标
+key.c (Source\Board):					SendStatus = 3;
+key.c (Source\Board):				else if(SendStatus == 3)//偏移
+key.c (Source\Board):					Send(0x04);
+key.c (Source\Board):					SendStatus = 0;
+key.c (Source\Board):				//Send_IEEE_Address();
+key.c (Source\Board):				 SendConfig();
+key.c (Source\Board):				UART0_SendByte('a');
+key.h (Source\Board):void SendConfig( void);
+main.c (Source):			{0,   1000,  1000, SendHeartBeat},
+main.c (Source):			//{0,   0,     0, SendHeartBeat},
+main.c (Source):		//UART0_SendByte('x');
+main.c (Source):		UART0_SendByte(*Rx0);
+main.c (Source):		UART0_SendByte(0x20);
+main.c (Source):		UART0_SendByte(0x08);
+main.c (Source):		//UART0_SendByte(*Rx0);
+main.c (Source):		UART0_SendByte('e');
+main.c (Source):		UART0_SendByte('f');
+main.c (Source):		UART0_SendByte('g');
+main.c (Source):		UART0_SendByte(*Rx0);
+main.c (Source):		//UART0_SendByte('c');
+phpalI14443p3a_Sw.c (Source\Board):    /* Send HltA command */
+phpalI14443p3a_Sw.c (Source\Board):    /* Send the ANTICOLLISION command */
+phpalI14443p3a_Sw.c (Source\Board):    /* Send ReqA command */
+---- SendOverFlag Matches (2 in 2 files) ----
+basic_rf.h (Source\Board):void SendOverFlag(void);
+clrc663.c (Source\Board):	SendOverFlag();
